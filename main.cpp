@@ -11,19 +11,21 @@ struct man {
 int getSizeArr()
 {
     int sizeArr;
-    printf("Enter the number of notes");
+    printf("Enter the number of notes: ");
     scanf("%d", &sizeArr);
     return sizeArr;
 }
 
-int getMan()
+void getMan(struct man *arrMen, int sizeArr)
 {
     char error;
-    int sizeArr = getSizeArr();
-    man arrMen[sizeArr];
+
+
     for (int i = 0; i < sizeArr; i++)
     {
-        printf("Press any key. ");
+        printf("\nNote: %d",i);
+
+        printf("\n");
         gets(&error);
         fflush(stdin);
 
@@ -31,34 +33,31 @@ int getMan()
         gets(arrMen[i].name);
         fflush(stdin);
 
+        printf("Enter Address: \n");
+        gets(arrMen[i].address);
+        fflush(stdin);
+
         printf("Enter date of birth\n");
         printf("Enter day: \n");
         scanf("%d",&arrMen[i].dd);
-        fflush(stdin);
-        printf("Enter mounth: \n");
+
+        printf("Enter month: \n");
         scanf("%d",&arrMen[i].mm);
-        fflush(stdin);
+
         printf("Enter year: \n");
         scanf("%d",&arrMen[i].yy);
-        fflush(stdin);
-
-        printf("Enter Address:\n");
-        gets(arrMen[i].address);
-        fflush(stdin);
     }
-    int linkArrMen = man arrMen[sizeArr];
-
 }
-
-void showNotes()
+void showNotesMen(struct man *arrMen, int sizeArr)
 {
-    for (int i=0; i<10;i++)
-        printf("%s %d %d %d %s \n", arrMen[i].name, arrMen[i].dd, arrMen[i].mm, arrMen[i].yy, arrMen[i].address);
+   for (int i=0; i<sizeArr; i++)
+        printf("%s %s %d %d %d \n", arrMen[i].name, arrMen[i].address, arrMen[i].dd, arrMen[i].mm, arrMen[i].yy);
 }
 
 int main()
 {
-    int *Men = getMan();
-
-
+    int sizeArr = getSizeArr();
+    man arrMen[sizeArr];
+    getMan(arrMen, sizeArr);
+    showNotesMen(arrMen, sizeArr);
 }
