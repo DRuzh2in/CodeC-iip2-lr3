@@ -51,7 +51,7 @@ void getMan(struct man *arrMen, int sizeArr)
 }
 void showNotesMen(struct man *arrMen, int sizeArr)
 {
-   for (int i=0; i<sizeArr; i++)
+    for (int i=0; i<sizeArr; i++)
         printf("%s %s %d %d %d \n", arrMen[i].name, arrMen[i].address, arrMen[i].dd, arrMen[i].mm, arrMen[i].yy);
 }
 
@@ -59,24 +59,41 @@ void showByte(struct man *arrMen, int sizeArr)
 {
     for (int i = 0; i < sizeArr; i++)
     {
-        printf("Note: %d\n", i);
+
+        char Arr[50] = {0}; // new array for structure
+
         int N = strlen(arrMen[i].name);
         int M = strlen(arrMen[i].address);
-        printf("Name = {");
-        for (int j = 0; j<N; j++)
+
+        ((int *)Arr)[0] = N; // enter length string name
+        ((int *)Arr)[5] = M;// enter length string address
+
+        char *name = &arrMen[i].name[0];
+        for (int n = 0; n<=N; n++){
+            Arr[1+n]=name[n];
+        } // input structure name in array
+
+        char *address = &arrMen[i].address[0];
+
+        for (int n = 0; n<=M; n++)
         {
-            printf("0x%X ", &arrMen[i].name[j]);
+            Arr[21+n] = address[n];// input structure address in array
         }
-        printf("}\n");
-        printf("Address = {");
-        for (int k = 0; k<M; k++)
-        {
-            printf("0x%X ", &arrMen[i].address[k]);
-        }
-        printf("}\n");
-        printf("Day = {0x%X}\n", &arrMen[i].dd);
-        printf("Month = {0x%X}\n", &arrMen[i].mm);
-        printf("Year = {0x%X}\n", &arrMen[i].yy);
+
+
+        ((int *)Arr)[10] = arrMen[i].dd; // input structure day in array
+        ((int *)Arr)[11] = arrMen[i].mm;// input structure month in array
+        ((int *)Arr)[12] = arrMen[i].yy;// input structure year in array
+
+        for (int y=0; y<50; y++)
+            printf("%d ",Arr[y]); // print on display array byte
+
+        printf("\n"); // print on display array byte
+
+        for (int y=0; y<50; y++)
+            if (Arr[y] != 0)
+                printf("%X ", &Arr[y]);  // print on display array address in memory
+
     }
 }
 
